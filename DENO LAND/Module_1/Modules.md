@@ -97,7 +97,8 @@ The above command will fail if there are any dependencies in the dependency tree
 
 -> Deno provides a way to download private modules using what's called ===BEARER TOKENS===
 
-===Bearer tokens=== are the predominant type of access token used with OAuth 2.0 and are broadly supported by hosting services like [[Github]], #Gitlab 
+===Bearer tokens=== are the predominant type of access token used with OAuth 2.0 and are broadly supported by hosting services like [[Git and Github/Github | Github]], #Gitlab 
 
-[[DENO LAND/Moduel_1/Standard Library | Standard Libraries]]
+[[DENO LAND/Module_1/Standard Library| Standard Libraries]]
+
 
