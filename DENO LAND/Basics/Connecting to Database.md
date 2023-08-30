@@ -1,9 +1,21 @@
 
 All the third-party modules are at [deno.land/x](https://deno.land/x).
 
+`deno.json`
+```json
+{
+	"imports":{
+		"MySQL": "https://deno.land/x/mysql/mod.ts",
+		"Postgres": "https://deno.land/x/postgresjs/mod.ts",
+		"MongoDB": "https://deno.land/x/mongo@<LatestVersion>/mod.ts",
+	}
+}
+```
 ### MySQL
 ```typescript
-import {Client} from "https://deno.land/x/mysql/mod.ts";
+// import {Client} from "https://deno.land/x/mysql/mod.ts";
+
+import {Client} from "MySQL";
 
 const client = await new Client().connect({
 	hostname: "127.0.0.1",
@@ -15,14 +27,16 @@ const client = await new Client().connect({
 
 ### Postgres
 ```javascript
-import postgres from "https://deno.land/x/postgresjs/mod.ts";
+//import postgres from "https://deno.land/x/postgresjs/mod.ts";
+import postgres from "Postgres"
 
 const sql = postgres("postgres://username:password@host:port/database");
 ```
 
 ### MongoDB
 ```javascript
-import {MongoClient} from "https://deno.land/x/mongo@<LatestVersion>/mod.ts";
+//import {MongoClient} from "https://deno.land/x/mongo@<LatestVersion>/mod.ts";
+import {MongoClient} from "MongoDB";
 
 const client = new MongoClient();
 
@@ -74,4 +88,6 @@ const auth = getAuth(app);
 ```
 
 For more and different types of database connection - refer - [official docs](https://deno.land/manual@v1.36.2/basics/connecting_to_databases)
+
+[[DENO LAND/Basics/Environment Variables]]
 

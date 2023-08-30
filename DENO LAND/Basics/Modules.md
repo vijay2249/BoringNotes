@@ -99,6 +99,6 @@ The above command will fail if there are any dependencies in the dependency tree
 
 ===Bearer tokens=== are the predominant type of access token used with OAuth 2.0 and are broadly supported by hosting services like [[Git and Github/Github | Github]], #Gitlab 
 
-[[DENO LAND/Module_1/Standard Library| Standard Libraries]]
+[[Standard Library| Standard Libraries]]
 
 

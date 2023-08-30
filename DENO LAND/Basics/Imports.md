@@ -47,5 +47,5 @@ import _ from "lodash_npm"
 > *Important* => The import map configuration files are only applied for Deno applications, not in the various libraries that your application code may import.
 
 ---
-[[DENO LAND/Module_1/Permissions |Permissions]]
+[[Permissions|Permissions]]
 

@@ -17,4 +17,4 @@ import {copy} from "https://deno.land/std@0.199.0/fs/copy.ts";
 
 ---
 
-[[DENO LAND/Module_1/Imports]]
+[[Imports]]

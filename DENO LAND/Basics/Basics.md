@@ -77,5 +77,5 @@ import {assertEquals, runTests, test} from "./deps.ts";
 
 ---
 
-[[DENO LAND/Module_1/Modules]]
+[[Modules]]
 

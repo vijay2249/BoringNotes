@@ -72,4 +72,4 @@ All the above mentioned frameworks have their advantages and tackle the problems
 
 More info -> [here](https://deno.land/manual@v1.36.2/getting_started/web_frameworks)
 
-Let's Being -> [[DENO LAND/Module_1/Basics]]
+Let's Being -> [[Basics]]

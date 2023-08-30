@@ -50,7 +50,7 @@ Lets create these images and containers
 => Then it will use this cached results to verify and check if there is any need for executing the same command again while re-building the image
 => Once the instruction yields a new result or generate a new layer, then it results in executing all the instruction from that instruction to all the instruction that are written below that statement
 
-While building an #images and sharing them, we might want to ignore some of the files like [git](obsidian://open?vault=My_Notes&file=Git%20and%20Github%2FGIT) files or [[dockerignore]] files or any [[environment variables]]
+While building an #images and sharing them, we might want to ignore some of the files like [git](obsidian://open?vault=My_Notes&file=Git%20and%20Github%2FGIT) files or [[dockerignore]] files or any [[Environment Variables]]
 
 ## Environment Variables
 

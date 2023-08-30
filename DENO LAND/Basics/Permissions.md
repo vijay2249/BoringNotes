@@ -20,4 +20,4 @@ These are the permission list that as a developer that you can control your scri
 3. Environment Variables
 4. Subprocess Permissions
 
-[[DENO LAND/Module_1/Connecting to Database|Database Connections]]
+[[Connecting to Database|Database Connections]]
