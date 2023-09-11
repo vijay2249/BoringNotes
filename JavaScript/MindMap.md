@@ -6,3 +6,5 @@
 	2. [[Null-Undefined-NaN]]
 
 [[JavaScript/Behind the Scenes of JavaScript|Behind the Scenes of JavaScript]]
+
+[[JavaScript/How Code is Parsed and Compiled|How Code is Parsed and Compiled]]
