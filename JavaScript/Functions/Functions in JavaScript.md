@@ -103,4 +103,8 @@ boundLog2(5,6)) //"this value", 1, 2, 3, 4, 5, 6
 
 ---
 
-[[JavaScript/Working With DOM|Working With DOM]]
+Let the fun begin
+
+_Starting with_ [[What is DOM|What is DOM]]
+
+[[JavaScript/DOM/Working With DOM|Working With DOM]]
