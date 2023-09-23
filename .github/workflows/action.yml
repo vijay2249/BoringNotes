@@ -20,6 +20,7 @@ jobs:
       - name: Setup CodeQL
         uses: github/codeql-action/setup@v2
         with:
+          queries: ./.github/workflows/action.yml
           languages: javascript,python
           # You can specify additional language variants if needed
           # GITHUB_TOKEN: ${{ secrets.PAT }}
