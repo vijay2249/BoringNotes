@@ -36,3 +36,4 @@ table.summary = "Note, increased border size";
 [[JavaScript/DOM/Learn to search Methods and attributes|Learn to search methods and attributes and understand them]]
 
 ---
+`querySelector` uses a CSS selector and can match ANY elements(depending on provided selector), `getElementById` looks only for the ID provided.

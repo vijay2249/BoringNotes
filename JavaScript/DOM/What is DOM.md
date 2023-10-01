@@ -57,3 +57,7 @@ __It is generally not recommended to mix the structure of the page( written in H
 ---
 
 [[JavaScript/DOM/Fundamental data types|Fundamental data types - DOM]]
+
+---
+
+[[JavaScript/DOM/Working With DOM|Working with DOM]]

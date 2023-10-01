@@ -34,13 +34,14 @@ window.alert("This is a pop-up")
 
 ---
 
-#### Element 
+### Element 
 `Element` is the most general base class from which all element objects(i.e objects that represent elements) in a `document` inherit.
 It only has methods and properties common to all kinds of elements 
 
 _Example_: the `HTMLElement` interface is the base interface for HTML elements, while the `SVGElement` interface is the basis or all SVG elements. Most functionally is specified further down the class hierarchy.
 
-#### Node
+---
+### Node
 The [DOM](https://developer.mozilla.org/en-US/docs/Glossary/DOM) __Node__ interface is an abstract base class upon which many other DOM API objects are based, thus letting those object types to be used similarly and often interchangeably. As an abstract class, there is no such thing as plain `Node` object.
 
 All objects that implement `Node` functionality are based on one of its subclasses. Most notable are `Document`, `Element`, `DocumentFragment`
@@ -74,3 +75,42 @@ this function recursively calls a function for each descendant node of `rootNode
 
 */
 ```
+
+
+---
+What you do in JavaScript is only loaded in the memory that is written in the browser...
+This will all gets erased once you reload the page
+
+---
+
+### Attributes vs Properties
+
+Attributes are mapped to properties and "live synchronization" is set up
+
+>Attribute are placed in HTML code, on element tags
+
+>Properties are the values of these Attributes on the element tags
+
+
+---
+
+### Styling DOM Elements
+
+You can do this via the ===style== property on the htmlElement nodes, 
+	This lets you directly target individual CSS styles of an element
+	Controls styles as inline styles on the element
+
+You can also use css class list and use _classList_ property on the HTMLElement
+
+
+
+
+---
+
+### Adding Element
+
+---
+
+### Removing Element
+
+---

@@ -44,3 +44,9 @@ Lets go through some common examples to understand some points
 -> Say you want to add new html tag inside a particular tag, that then becomes the child of the selected HTML tag, now search in google for ===add/append/new child tag creation to element/node/html tag via javascript===
 
 This is also a necessary Skill to learn => How to google Stuff.😜
+
+---
+
+### Resources
+
+[https://dom.spec.whatwg.org/](https://dom.spec.whatwg.org/)
