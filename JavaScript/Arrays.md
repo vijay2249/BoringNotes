@@ -16,3 +16,7 @@ Hence
 #### Spread Operator
 
 [[JavaScript/Functions/Functions in JavaScript#Spread Operator|Spread Operator]] <-- basics are written here 
+
+---
+
+[[Objects|Objects]]
