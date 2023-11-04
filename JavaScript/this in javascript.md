@@ -122,4 +122,4 @@ If in doubt, a `console.log(this);` can always help you find out what `this`�
 
 Getters & Setters
 
-[[[JavaScript/Getters_Setters|Getters & Setters]]
+[[JavaScript/Getters_Setters|Getters & Setters]]
