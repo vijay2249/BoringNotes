@@ -325,3 +325,185 @@ curl --connect-timeout 5 http://$IPADDRESS
 You might be seeing _connection timed out_ error in the beginning that is due to network security rules and we are going to resolve this issue
 
 ### Network security group rules
+1. Run the command `az network nsg list` to list the network security groups that are associated with VM
+
+```bash
+az network nsg list --resource-group \<resource-Grp> --query '[].name' --output tsv
+```
+
+Every VM on azure is associated with atleast one network security group
+
+To list the rules of the network group, run the command
+```bash
+az network nsg rule list --resource-group \<resourceGroup> --nsg-name \<PreviousCommandOutput>
+```
+
+You will see the total information about the network security group that your VM is placed into and all the rules and regulations applicable to that VM and resource groups.
+
+
+You can use the `--query` flag to scale down your output to only the information that you need.
+
+```bash
+az network nsg rule list --resource-group \<resourceGroup> --nsg-name \<NSG-NAME> --query '[].{Name:name, Priority:priority, Port:destinationPortRange, Access:access}' --output table
+```
+
+This scrapes the data about name of rule, priority, port and access to rules that are assigned to VM and machine process in a tabular format<br>
+Priority is more if priority number is less
+
+Now in our current scenario only port 22 is open, that is for SSH connections, which in general means that only admin can access our VM<br>
+But we also need to allow inbound connections on port 80 to display our website which is hosted on port 80 from our VM
+
+--
+
+### Creating network security rule
+Now we create a rule to allow inbound access to port 80 in our VM
+```bash
+az network nsg rule create \
+--resource-group \<group> \
+--nsg-name \<networkName> \
+--name allow-http \
+--protocol tcp \
+--priority 700 \
+--destination-port-range 80 \
+--access allow
+```
+
+all flags are self-explanatory in this command
+
+Now if you run the rules command again, you can see multiple rules outputted in which one of that rule is the one that we created from above command.
+
+
+Now you can run the curl command from above section(s) to try to connect with our VM to request webpage, for which this time you will get response.
+
+--
+
+If you have multiple VMs that serve the same purpose, you can assign that network security group(NSG) to each VM at the time you create it.
+
+
+----
+
+## Azure Virtual Private Networks
+VPN - used encrypted tunnel within another network<br>
+Traffic is encrypted while travelling over the untrusted network to precent eavesdropping or other attacks.
+
+### VPN gateways
+Azure VPN gateway instances are deployed in a dedicated subnet of the virtual network to enable the following connectivity
+1. connect on-premise datacenters to virtual networks through site-to-site connection
+2. connect individual devices to virtual networks through a point-to-site connection
+3. connect virtual networks to other virtual networks through a network-to-network connection
+
+
+You can deploy only one VPN gateway in each virtual network<br>
+However you can use one gateway to connect to multiple locations, which includes other virual networks or on-premise datacenters
+
+In Azure, regardless of the VPn type, the method of authentication employed is a pre-shared key<br>
+There are two types of VPN type 
+1. policy-based
+    - specify statically the IP address of packets that should be encrypted through each tunnel.
+    - This type of device evaluates every data packet aganist those sets of IP addresses to choose the tunnel where that packet is going to be sent through
+2. route-based
+    - IPSec tunnels are modeled as a network interface or virtual tunnel interface.
+    - IP routing decides which one of these tunnel interfaces to use when sending each packet.
+    - Route-based VPNs are preferred connection method for on-premise devices. They are more resilient to topology changes such as the creation of new subnets.
+
+The difference is how they determine which traffic needs encryption.
+
+--
+
+### High-availability Scenarios
+
+#### Active/Standby
+By default, gateways are deployed as two instances in an active/standby configuration, even if you only see one VPN gateway resource in Azure.
+
+When ther are any disruptions, the standby instance automatically assumes responsibility for connections without any user intervention<br>
+In general the standby time is 90 seconds for unplanned disruptions
+
+
+#### Active/active
+With the introduction of support for BGP routing protocol, you can also deploy VPN gateways in an active configuration<br>
+In this configuration, you can assign a unique IP address to each instance. You can extend the high availability by deploying an additional VPN device on-premise
+
+
+#### ExpressRoute failover
+Another option is to configure a VPN gateway as a secure failover path for _ExpressRoute_ connections<br>
+_ExpressRoute_ circuits have resiliency built-in.<br>
+In high availability scenarios, where there is risk associated with an outrage of an ExpressRoute circuitm you can also provision a VPN gateway that uses the internet as an alternative method of connectivity
+
+
+#### Zone redundant gateways
+In regions that support availability zones, VPN gateways and ExpressRoute gateways van be deployed in a zone-redundant configuration.<br>
+Deploying gateways in Azure availability zones physically and logically separates gateways within a region while protecting your on-premise network connectivity to Azure from zone-level failures
+
+These gateways require different gateway stock keeping units and use standard public IP addresses instead of basic public IP addresses.
+
+
+----
+
+## Azure _ExpressRoute_
+_Azure ExpressRoute_ lets you extend your on-premise networks into the Microsoft cloud over a private connection, with the help of a connectivity provider. Circuit is called _ExpressRoute Circuit_
+
+Connectivity can be from an any-to-any network, point-to-point ethernet network, or a virtual cross-connection through a connectivity provider at a colocation facility. <br>
+ExpressRoute connections dont go over the public internet. This offers reliability, speed, consistent latencies, and higher security.
+
+### Features/benefits of ExpressRoute
+1. Connectivity to Microsoft cloud services across all regions in the geopolitical region
+2. Global connectivity to microsoft services across all regions with the ExpressRoute Global Reach
+3. Dynamic routing between your network and microsoft via BGP
+    - ExpressRoute uses the BGP, which is used to exchange routes between on-premises networks and resources running in Azure. This protocl enables dynamic routing between your on-premises network and services running in the cloud.
+4. Built-in redundancy in every peering location for higher reliability.
+
+
+### ExpressRoute Connectivity models
+ExpressRoute supports four models that you can use to connect your op-premise network to the microsoft cloud:
+1. CouldExchange colocation
+    - if your facility is co-located at a cloud exchange, you can request a virtual cross-connect to the microsoft cloud
+2. Point-to-point ethernet connection
+    - refers to using point-to-point connection to connect your facility to the microsoft cloud
+3. Any-to-any connection
+    - With any-to-any connectivity, you can integrate WAN with azure by providing connections to your offices and datacenters.
+4. Directly from ExpressRoute sites
+    - This provides Active/Active connectivity at scale
+
+
+### Security Considerations
+With _ExpressRoute_ your data doesnt travel over the public internt.<br>
+Its a private connection from your on-premise infrastructure to your azure infrastructure<br>
+Even if you have ExpressRoute connection, DNS queries, certificate revocation list checking and Azure content delivery network requests are still sent over the public internet.
+
+
+----
+
+## Azure DNS
+By hosting your domains in Azure, you can manage your DNS records using the same credentials, APIs, tools and billings as your other Azure services.
+
+
+### Reliability and Performace
+Azure DNS uses anycast networking, so each DNS query is answered by the closest available DNS server to provide fast performance and high availability.
+
+
+### Security
+Azure DNS is based on Azure Resource Manager, which provides features as:
+1. Azure Role-based-access-control to control who has access to specific actions to your org.
+2. Activity logs to monitor changes for troubleshooting purpose
+3. Resource locking to lock a subscription, resource group, or resource. Locking prevents other users in your organization from accidentally deleting or modifying critical resources.
+
+### Customizable virtual networks with private domains
+Azure DNS also supports private DNS domains, this feautre allows you to use your own custom domain names in your private virtual networks, rather than being stuck with the Azure-provided names.
+
+
+### Alias records
+Azure DNS also supports alias record sets. You can use an alias record set to refer an Azure resource, such as an Azure public IP address, an Azure Traffic Manager rpofile, or an Azure Content Delivery Network endpoint.<br>
+If the IP address of the underlying resource changes, the alias record set seamlessly updates itself during DNS resolution.
+
+The alias record set points to the service instance, and the service instance is associated with the IP address
+
+
+---
+
+> You cant use Azure DNS to buy a domain name. For an annual fee, you can buy domain name by using app service domains or third party domain name registrar. 
+> Once purchased, your domains can be hosted in Azure DNS for record management.
+
+-----
+
+## Summary
+https://learn.microsoft.com/en-us/training/modules/describe-azure-compute-networking-services/14-summary
