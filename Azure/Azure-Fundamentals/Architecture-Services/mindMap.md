@@ -50,9 +50,14 @@ You can enter interactive mode using the command _az interactive_ and wait for s
 ==> Exercise - create an azure resource, not done..
 
 ## Azure compute and Network Services
-
+[Compute-Network-Services](./compute-and-network-services.md)
 
 ## Azure Storage Services
-
+[Storage-Services](./Azure-storage-services.md)
 
 ## Azure [Identity, Access, Security]
+
+
+---
+
+Reference --> https://learn.microsoft.com/en-us/training/paths/azure-fundamentals-describe-azure-architecture-services/
