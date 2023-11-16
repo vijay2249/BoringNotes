@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Resources](README.md)
-* [mind-map](mind-map.md)
+* [mindmap](mindMap.md)
 * [Azure-Fundamentals](Azure-Fundamentals/README.md)
   * [Architecture-Services](Azure-Fundamentals/Architecture-Services/README.md)
     * [Azure Infrastructure](Azure-Fundamentals/Architecture-Services/Azure-architecture-and-services.md)
