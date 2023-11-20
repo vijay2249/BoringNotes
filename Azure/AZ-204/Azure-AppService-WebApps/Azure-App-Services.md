@@ -201,5 +201,3 @@ To find all possible outbound IP addresses for you app, regardless of pricing ti
 ```bash
 az webapp show --resource-group \<groupName> --name \<appName> --query possibleOutboundIpAddresses --output tsv
 ```
-
-

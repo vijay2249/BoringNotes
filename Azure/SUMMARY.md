@@ -30,4 +30,4 @@
   * [Course Notes - Udemy](AZ-204/course-notes-udemy/README.md)
     * [Azure App Service](<AZ-204/course-notes-udemy/Azure App Service.md>)
     * [Create VM via Powershell](<AZ-204/course-notes-udemy/Create VM via Powershell.md>)
-* [Resources](<README (1).md>)
+* [Resources](<resources.md>)
