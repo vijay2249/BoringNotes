@@ -4,3 +4,12 @@ Just sharing my knowledge... Wanna contribute? Please do it. Anything and all kn
 
 
 See Contributing.MD file for more info.
+
+## Update
+All folders are required to have a _summary.md_ file that should display the order in which user must go through the concepts which is better than to just go through files on by one randomly.
+
+If there is no such _summary.md_ file found then any pr will not be accepted.
+
+For now directly commiting to main branch is dismissed due to this specific reason.
+
+Once the main branch is updated with the required workings, all the settings will be reverted back.
