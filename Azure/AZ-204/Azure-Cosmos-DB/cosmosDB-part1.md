@@ -133,3 +133,132 @@ A _request unit_ represents the system resources such as CPU, IOPS and memory th
 - __Autoscale mode__
     - you can automatically and instantly scale the throughput of your database or container based on its usage.
     - it doesnt the availability, latency, throughput or performance of the workload.
+
+
+
+## _Object Model_ in _Azure Cosmos DB_
+Azure Cosmos DB has a specific object model used to create and access resources. The azure cosmos db creates resoruces in a hierarchy that consists of accounts, databases, containers, and items.
+
+[Resource Hierarchy](../../images/resource-hierarchy.svg)
+
+
+Azure Cosmos DB provides language-integrated, transactional execution of JS that lets you write __stored procedures, triggers, user-defined function__.
+
+
+### Stored Procedures
+Stored procedures can create, update, read, query and delete items inside an azure cosmos container.<br>
+Stored procedures are registered per collection, and can operate on any document or an attachment present in that collection.
+
+```js
+var hiMOMStoredProc = {
+    id: "Hi MOM",
+    serverScript: function(){
+        var context = getContext()
+        var response = context.getResponse()
+        response.setBody("Hi MOM")
+    }
+}
+```
+
+The context onject provides access to all operations that can be performed in _azure cosmos db_, and access to the request and response objects.
+
+
+When you create an item by using stored procedures, its inserted into the _azure cosmos container_ and an ID for the newly created item is returned.<br>
+Creating an item is an asynchronous operation and depends on the JavaScript vall functions.
+
+The callback function has two parameter
+- The error object in case the operation fails
+- A return value
+
+The stored prodecure takes an input `documentToCreate`, the body of a document to be created in the current collection. In case a callback isnt provided and theres an error, the DocumentDB runtime throws an error
+
+```js
+var createDocumentStoredProc = {
+    id: "Hello MOM",
+    body: function createMyDocument(documentToCreate){
+        var context = getContext()
+        var collection = context.getCollection()
+        var accepted = collection.createDocument(collection.getSelfLink(), documentToCreate, function(err, documentCreated){
+            if(err) throw new Error(err.message)
+            context.getResponse().setBody(documentCreated.id)
+        })
+        if(!accepted) return;
+    }
+}
+```
+
+When defining a stored procedure in the azure portal, input parameters are always sent as a _string_ to the stored procedure. Even if you pass an array of strings as an input, the array is converted to string and sent to the stored procedure.<br>
+
+To work around this, you can define a function within your stored procedure to parse the string as an array.
+
+> All Azure Cosmos DB operations must complete within a limited amount of time. Stored procedures have a limited amount of time to run on the server. All collection functions return a Boolean value that represents whether that operation completes or not.
+
+
+### Transactions within Stored Procedures
+JS functions can implement a continuation-based model to batch or resume execution. The continuation value can be any value of your choice and your applications can then use this value to resume a transaction from a new starting point.
+
+[Transactions process](../../images/transaction-continuation-model.png)
+
+
+### User defined functions && Triggers
+Azure Cosmos DB supports pretriggers and post-triggers. Pretriggers are executed before modifying a database item and post-triggers are executed after modifying a database item.<br>
+Triggers arent automatically exeucte, they must be specified for each database operation where you wnat them to execute. After you define a trigger, you should register it by using the azure cosmos db sdk
+
+Pre-trigger example
+```js
+const validateTodoItemTimestamp = () =>{
+    var context = getContext()
+    var request = context.getRequest()
+
+    var itemToCreate = request.getBody()
+    if(!("timestamp" in itemToCreate)){
+        var ts = new Date()
+        itemToCreate['timestamp'] = ts.getTime();
+    }
+
+    request.setBody(itemToCreate);
+} 
+```
+
+> Pre-triggers cant have any input parameters.
+
+When triggers are registered, you can specify the operations that it can run with. This trigger should be created with a `TriggerOperation` value of `TriggerOperation.Create`, which means using the trigger in a replace operation isnt permitted.
+
+
+Post-trigger example
+```js
+const updateMetadata = () =>{
+    var context = getContext()
+    var container = context.getCollection()
+    var response = context.getResponse()
+
+    var createdItem = response.getBody()
+
+    var filterQuery = `select * from root r where r.id = '_metadata'`
+    var accept = container.queryDocuments(container.getSelfLink(), filterQuery, updateMetadataCallback);
+    if(!accept) throw "Unable to update metadata, abort the operation";
+
+    function updateMetadataCallback(err, items, responseOptions){
+        if(err) throw new Error(err.message)
+        var metadataItem = items[0];
+        metadataItem.createdItems += 1
+        metadataItem.createdName += " " + createdItem.id;
+
+        var accept = container.replaceDocument(metadataItem._self, metadataItem, function(err, itemReplaced){
+            if(err) throw new Error("Unable to update metadata, abort operation");
+        })
+        if(!accept) throw "Unable to update metadata, abort operation"
+        return;
+    }
+}
+```
+
+> The transactional execution of triggers in Azure Cosmos DB, the post-trigger runs as part of the same transaction for the underlying item itself. An exception during the post-trigger execution fails the whole transaction. Anything committed is rolled back and an exception returned
+
+
+
+### Change feed in azure cosmos db
+It is a persistent record of changes to a container in the order they occur.<br>
+Change feed support in azure cosmos db works by listening to an azure cosmos db container for anu changes. It then outputs the sorted list of documetns that were changes in the order in which they were modified.<br>
+The persisted changes can be processed asynchronously and incrementally, and the output can be distributed across one or more consumers for parallel processing.
+
