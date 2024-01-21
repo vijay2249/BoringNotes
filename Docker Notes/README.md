@@ -5,7 +5,7 @@
 ### what is #DOCKER
 > ***What is docker***
 >  1. A tool for creating and managing containers
->  2. Docker simplifies the creation and management of such **[[containers]]**
+>  2. Docker simplifies the creation and management of such **[[Containers]]**
 
 
 ## What are [[Containers]]
