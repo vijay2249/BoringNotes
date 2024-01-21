@@ -1,0 +1,23 @@
+{
+	"nodes":[
+		{"id":"d74ea2ad42cf936d","x":-2760,"y":-400,"width":715,"height":580,"type":"group","label":"With Cloudflare DNS Proxy"},
+		{"id":"4568a968797ecd5c","type":"group","x":-2445,"y":-880,"width":415,"height":340,"label":"Without Cloudflare DNS Proxy"},
+		{"id":"f92b58640533fb83","type":"text","text":"","x":-168,"y":380,"width":250,"height":60},
+		{"id":"f1cda4ea14edb8a2","type":"text","text":"Origin Server\n","x":-2300,"y":-620,"width":250,"height":60},
+		{"id":"cfd0dcebd1775c94","type":"text","text":"connection\n","x":-2425,"y":-740,"width":250,"height":60},
+		{"id":"e312cd7a43428b04","type":"text","text":"Visitor","x":-2300,"y":-860,"width":250,"height":60},
+		{"id":"ddb1a56ecfc1164d","x":-2740,"y":-380,"width":250,"height":60,"type":"text","text":"Visitor"},
+		{"id":"a8d78e087ad32dd4","x":-2640,"y":-260,"width":250,"height":60,"type":"text","text":"Connection"},
+		{"id":"5f6e83e5f0b8a678","x":-2550,"y":-140,"width":250,"height":60,"type":"text","text":"Cloudflare global network"},
+		{"id":"75f484907055367c","x":-2440,"y":-20,"width":250,"height":60,"type":"text","text":"connection"},
+		{"id":"e1c3aa18b0638804","x":-2315,"y":100,"width":250,"height":60,"type":"text","text":"origin server"}
+	],
+	"edges":[
+		{"id":"eb7e613982dd798b","fromNode":"cfd0dcebd1775c94","fromSide":"top","toNode":"e312cd7a43428b04","toSide":"left"},
+		{"id":"bcca3aa9d6a36eef","fromNode":"cfd0dcebd1775c94","fromSide":"bottom","toNode":"f1cda4ea14edb8a2","toSide":"left"},
+		{"id":"3204a67d5607b663","fromNode":"a8d78e087ad32dd4","fromSide":"top","toNode":"ddb1a56ecfc1164d","toSide":"right"},
+		{"id":"ffb2e510390cb13b","fromNode":"a8d78e087ad32dd4","fromSide":"bottom","toNode":"5f6e83e5f0b8a678","toSide":"left"},
+		{"id":"8a3a8193248f31c8","fromNode":"75f484907055367c","fromSide":"top","toNode":"5f6e83e5f0b8a678","toSide":"right"},
+		{"id":"f1103c636f62e705","fromNode":"75f484907055367c","fromSide":"bottom","toNode":"e1c3aa18b0638804","toSide":"left"}
+	]
+}
