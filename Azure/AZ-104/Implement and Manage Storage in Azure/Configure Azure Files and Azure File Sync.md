@@ -104,3 +104,48 @@ The registered server object represents a trust relationship between your server
 #### Azure file sync agent
 
 The azure file sync agent is a downloadable package that enables windows server to be synced with an azure file share.
+
+The azure file sync agent has three main components:
+1. **FileSyncSvc.exe**: background windows service thats responsible for monitoring changes on server endpoints and for initiating sync sessions to azure.
+2. **StorageSync.sys**: this is azure file sync file system filter that supports cloud tiering. The filter is responsible for tiering files to azure files when cloud tiering is enabled.
+3. **PowerShell cmdlets**: These allow you to interact with the `Microsoft.StorageSync` azure resource provider. 
+
+#### Server endpoint
+
+Represents a specific location on a registered server such as folder on a server volume. Multiple server endpoints can exist on the same volume if their namespaces are unique.
+
+#### Cloud endpoint
+
+It is an azure file share thats part of a sync group. As part of sync group, the entire cloud endpoint syncs.
+- azure file share can be member of one cloud endpoint only
+- azure file share can be member of one sync group only
+
+
+---
+
+### Deploy Azure file sync
+
+Before you can start synchronizing files with azure file sync, there are several high level steps that need to be completed
+
+1. Deploy the storage sync service
+	1. You can deploy the storage sync service from the azure portal
+		1. deployment name for the storage sync service
+		2. azure sub id to use for deployment
+		3. resource group for deployment
+		4. deployment location
+2. Prepare each windows server to use azure file sync
+	1. after deployment, you configure each windows server that you intend to use with azure file sync including server nodes in a failover cluster
+3. install the azure file sync agent
+	1. the agent is a downloadable package that enables windows server to be synced with an azure file share. 
+4. register each windows server with the storage sync service
+	1. By registering the windows server with a storage sync service, you establish a trust relationship between your server and the storage sync service.
+	2. For registration you need azure sub ID and some of the deployment settings you configured in the first step. 
+
+- Getting started [video](https://youtu.be/Zm2w8-TRn-o)
+
+> A server (or cluster) can be registered with only one Storage Sync Service resource at a time.
+
+
+Cloud tiering allows frequently accessed files to be cached on the local server. Infrequently accessed files are tiered or archived to the Azure file share according to the policy created.
+
+
