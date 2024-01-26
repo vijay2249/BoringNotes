@@ -7,7 +7,7 @@
 
 In Azure app service, an application runs in an azure app service plan. App service plan defines a set of compute resources for a web application to run. 
 
-The compute resources are analogous to a server farm in conventional web hosting. One or more applications can be confiured to run on the same computing resources (or in the same app service plan)
+The compute resources are analogous to a server farm in conventional web hosting. One or more applications can be configured to run on the same computing resources (or in the same app service plan)
 
 When you create an app service plan in a region, a set of compute resources is created for the plan in the specified region. Any applications that you place into the plan run on the compute resources defined by the plan.
 
@@ -16,7 +16,7 @@ Each app service plan defines three settings
 2. Number of VM instances
 3. Size of VM instances
 
-If your plan is configured to run five VM instances, then all applications in the plan run on all five instances. If your plan is configured for autoscaling, then all applications in the plan are scaled out together based on the autoscale settings
+If your plan is configured to run five VM instances, then all applications in the plan run on all five instances. If your plan is configured for autoscaling, then all applications in the plan are scaled out together based on the auto-scale settings
 
 
 Things to consider when using app service plans
@@ -43,4 +43,4 @@ There are two methods for scaling your azure app service plan and applications: 
 
 
 - When you change your scale setting, you dont need to change your code or redeploy your applications. 
-- If youe app service application depends on other azure services, such as Azure SQL database or Azure Storage, you can scale these resources separately. These resources arent managed by your app service plan.
+- If your app service application depends on other azure services, such as Azure SQL database or Azure Storage, you can scale these resources separately. These resources arent managed by your app service plan.

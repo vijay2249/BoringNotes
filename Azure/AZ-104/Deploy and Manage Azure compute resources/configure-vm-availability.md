@@ -32,3 +32,9 @@ things to consider when using vertical and horizontal scaling
 - consider limitations
 - consider flexibility
 - consider reprovisioning - process of removing an existing vm and replacing it with a new maachine.
+
+---
+
+Azure virtual machine scale sets are an azure compute resource that you can use to deploy and manage a set of identical virtual machines. 
+
+When you implement virtual machine scale sets and configure all your virtual machines in the same way, you gain true autoscaling
