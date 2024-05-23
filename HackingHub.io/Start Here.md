@@ -1,0 +1,3 @@
+- launch the server
+- main page - get the flag
+- go to admin subdomain of given scope of attack - get another flag
