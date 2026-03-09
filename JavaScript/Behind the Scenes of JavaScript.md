@@ -32,8 +32,8 @@ console.log(name) //this thowrs error saying same variable name declared again
 
 But by using var javascript wont throw this error
 ```javascript
-let name = "harry"
-let name = "liam"
+var name = "harry"
+var name = "liam"
 console.log(name) //prints liam
 ```
 
