@@ -24,10 +24,10 @@ Now in between these two steps there lies an engine - JavaScript engine
 This is different in different browsers, like google chrome uses V8 engine and Firefox uses SpiderMonkey - these engines are built into the browser
 
 On the fly, these engines 
-	1. Parse your code
-	2. Then compile to Machine code
-	3. Then Execute the Machine Code
-	4. Then when the code is executed we have the effect on the web page
+1. Parse your code
+2. Then compile to Machine code
+3. Then Execute the Machine Code
+4. Then when the code is executed we have the effect on the web page
 
 There are lot of optimizations that these engines uses but currently they are not necessary to understand.
 
